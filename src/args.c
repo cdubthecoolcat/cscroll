@@ -10,6 +10,10 @@ void print_args(Args* args) {
 
 // For argument parsing
 Args parse_args(int argc, char **argv) {
+  if (argc <= 1) {
+    print_help(argv[0]);
+    exit(0);
+  }
   Args args = {
     0,
     0,
