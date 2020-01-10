@@ -3,7 +3,7 @@
 void print_args(Args* args) {
   printf("Padding: %d\n", args->padding);
   printf("Max Length: %d\n", args->max_length);
-  printf("Delay: %ld\n", args->delay);
+  printf("Delay: %Le\n", args->delay);
   printf("String: %s\n", args->string);
   fflush(stdout);
 }
@@ -41,7 +41,7 @@ Args parse_args(int argc, char **argv) {
       }
     }
   }
-  /*print_args(&args);*/
+
   return args;
 }
 
