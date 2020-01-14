@@ -51,6 +51,6 @@ Args parse_args(int argc, char **argv) {
 }
 
 void print_help(char* command) {
-  printf("usage %s [-p PADDING] [-m MAX_LENGTH] [-d DELAY] [STRING]\n", command);
+  printf("usage %s [-p PADDING] [-m MAX_LENGTH] [-d DELAY] [STRING | -c COMMAND]\n", command);
   exit(0);
 }

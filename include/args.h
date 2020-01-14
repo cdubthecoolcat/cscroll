@@ -15,7 +15,11 @@ typedef struct {
   bool new_line;
 } Args;
 
+// simple argument parser
+// needs some work
 Args parse_args(int argc, char** argv);
+
+// print the help dialog
 void print_help(char* command);
 
 #endif // ARGS_H
