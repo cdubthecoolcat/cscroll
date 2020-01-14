@@ -1,50 +1,45 @@
 #include <stdbool.h>
-#include <time.h>
-#include <math.h>
 #include "args.h"
-
-#define NANO_MULTI 1e9
-
-int nanosleep(const struct timespec *__requested_time, struct timespec *__remaining);
-
-unsigned add_padding(char* string, int padding) {
-  unsigned length = strlen(string);
-  if (padding <= 0) {
-    return length;
-  }
-  for (int i = length; i < (length + padding); ++i) {
-    strlcat(string, " ", i + 2);
-  }
-  return length + padding;
-}
-
-void shift_string(char* string, unsigned length) {
-  char first = string[0];
-  for (int i = 0; i < length - 1; ++i) {
-    string[i] = string[i + 1];
-  }
-  string[length - 1] = first;
-}
-
-const struct timespec generate_delay(long double delay) {
-  unsigned seconds = 0;
-  unsigned nanoseconds = 0;
-
-  seconds = (int) floor(delay);
-  nanoseconds = (delay - seconds) * NANO_MULTI;
-  return (const struct timespec){ seconds, nanoseconds };
-}
+#include "scroll.h"
 
 int main(int argc, char** argv) {
   Args args = parse_args(argc, argv);
   const struct timespec delay = generate_delay(args.delay);
-  unsigned length = add_padding(args.string, args.padding);
+  char* original;
 
+  if (args.command != NULL) {
+    args.string = generate_command_output(args.command);
+    unsigned raw_length = strlen(args.string);
+    original = malloc(sizeof(char) * (raw_length + 1));
+    strlcpy(original, args.string, raw_length + 1);
+  }
+
+  unsigned padded_length = add_padding(args.string, args.padding);
+
+  bool empty_printed = false;
   while (true) {
-    printf("%.*s\r", args.max_length == 0 ? length : args.max_length, args.string);
+    if (args.command != NULL) {
+      handle_output_change(&original, &padded_length, &args);
+    }
+
+    if (args.command == NULL || strlen(original) > 0) {
+      printf("%.*s", args.max_length == 0 ? padded_length : args.max_length, args.string);
+      args.new_line ? printf("\n") : printf("\r");
+      shift_string(args.string, padded_length);
+      empty_printed = false;
+    } else if (!empty_printed) {
+      args.new_line ? printf("\n") : printf("\r");
+      empty_printed = true;
+    }
+
     fflush(stdout);
-    shift_string(args.string, length);
     nanosleep(&delay, NULL);
   }
+
+  if (args.command != NULL) {
+    free(args.string);
+    free(original);
+  }
+
   return 0;
 }

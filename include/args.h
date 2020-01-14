@@ -2,6 +2,7 @@
 
 #define ARGS_H
 #include <bsd/string.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -10,6 +11,8 @@ typedef struct {
   int max_length;
   long double delay;
   char* string;
+  char* command;
+  bool new_line;
 } Args;
 
 Args parse_args(int argc, char** argv);

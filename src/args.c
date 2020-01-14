@@ -12,13 +12,14 @@ void print_args(Args* args) {
 Args parse_args(int argc, char **argv) {
   if (argc <= 1) {
     print_help(argv[0]);
-    exit(0);
   }
   Args args = {
-    0,
-    0,
-    1.0,
-    NULL
+    0, // padding
+    0, // max_length
+    1.0, // delay
+    NULL, // string
+    NULL, // command
+    false, // new_line
   };
   for (int i = 1; i < argc; ++i) {
     char* arg = argv[i];
@@ -32,9 +33,13 @@ Args parse_args(int argc, char **argv) {
     } else if (strcmp(arg, "-d") == 0) {
       args.delay = atof(arg_val);
       ++i;
+    } else if (strcmp(arg, "-c") == 0) {
+      args.command = arg_val;
+      ++i;
+    } else if (strcmp(arg, "-n") == 0) {
+      args.new_line = true;
     } else if (strcmp(arg, "-h") == 0) {
       print_help(argv[0]);
-      exit(0);
     } else {
       if (args.string == NULL) {
         args.string = arg;
@@ -47,4 +52,5 @@ Args parse_args(int argc, char **argv) {
 
 void print_help(char* command) {
   printf("usage %s [-p PADDING] [-m MAX_LENGTH] [-d DELAY] [STRING]\n", command);
+  exit(0);
 }
