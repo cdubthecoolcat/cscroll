@@ -1,4 +1,3 @@
-#include <stdbool.h>
 #include "args.h"
 #include "scroll.h"
 

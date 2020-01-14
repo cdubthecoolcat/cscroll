@@ -5,8 +5,6 @@
 #include "args.h"
 #include <time.h>
 #include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 #define NANO_MULTI 1e9
 
