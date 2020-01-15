@@ -18,18 +18,24 @@ int main(int argc, char **argv) {
   }
 
   unsigned padded_length = add_padding(args.string, args.padding);
+  if (args.max_length == 0) {
+    args.max_length = padded_length;
+  }
 
   bool empty_printed = false;
+  int i = 0;
   while (true) {
     if (args.command != NULL) {
       handle_output_change(&original, &padded_length, &args);
     }
 
     if (args.command == NULL || strlen(original) > 0) {
-      printf("%.*s", args.max_length == 0 ? padded_length : args.max_length,
-             args.string);
+      printf("%.*s", args.max_length, args.string + i);
+      if (padded_length - i < args.max_length) {
+        printf("%.*s", args.max_length - (padded_length - i), args.string);
+      }
+      i = (i + 1) % padded_length;
       args.new_line ? printf("\n") : printf("\r");
-      shift_string(args.string, padded_length);
       empty_printed = false;
     } else if (!empty_printed) {
       args.new_line ? printf("\n") : printf("\r");

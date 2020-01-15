@@ -16,13 +16,13 @@ unsigned add_padding(char *string, int padding) {
   return length + padding;
 }
 
-void shift_string(char *string, unsigned length) {
-  char first = string[0];
-  for (int i = 0; i < length - 1; ++i) {
-    string[i] = string[i + 1];
-  }
-  string[length - 1] = first;
-}
+/*void shift_string(char *string, unsigned length) {*/
+  /*char first = string[0];*/
+  /*for (int i = 0; i < length - 1; ++i) {*/
+    /*string[i] = string[i + 1];*/
+  /*}*/
+  /*string[length - 1] = first;*/
+/*}*/
 
 const struct timespec generate_delay(long double delay) {
   unsigned seconds = 0;

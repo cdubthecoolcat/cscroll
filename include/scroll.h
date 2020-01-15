@@ -10,7 +10,7 @@
 unsigned add_padding(char *string, int padding);
 
 // shifts string by one. may switch to printing manip
-void shift_string(char *string, unsigned padded_length);
+//void shift_string(char *string, unsigned padded_length);
 
 // split delay into seconds/nanoseconds
 const struct timespec generate_delay(long double delay);

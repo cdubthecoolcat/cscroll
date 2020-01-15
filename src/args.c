@@ -28,15 +28,27 @@ Args parse_args(int argc, char **argv) {
     char *arg = argv[i];
     char *arg_val = argv[i + 1];
     if (strcmp(arg, "-p") == 0) {
+      if (arg_val == NULL) {
+        print_help(argv[0]);
+      }
       args.padding = atoi(arg_val);
       ++i;
     } else if (strcmp(arg, "-m") == 0) {
+      if (arg_val == NULL) {
+        print_help(argv[0]);
+      }
       args.max_length = atoi(arg_val);
       ++i;
     } else if (strcmp(arg, "-d") == 0) {
+      if (arg_val == NULL) {
+        print_help(argv[0]);
+      }
       args.delay = atof(arg_val);
       ++i;
     } else if (strcmp(arg, "-c") == 0) {
+      if (arg_val == NULL) {
+        print_help(argv[0]);
+      }
       args.command = arg_val;
       ++i;
     } else if (strcmp(arg, "-n") == 0) {
