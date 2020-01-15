@@ -8,13 +8,9 @@
 int main(int argc, char **argv) {
   Args args = parse_args(argc, argv);
   const struct timespec delay = generate_delay(args.delay);
-  char *original;
 
   if (args.command != NULL) {
     args.string = generate_command_output(args.command);
-    unsigned raw_length = strlen(args.string);
-    original = malloc(sizeof(char) * (raw_length + 1));
-    strlcpy(original, args.string, raw_length + 1);
   }
 
   unsigned padded_length = add_padding(args.string, args.padding);
@@ -24,16 +20,19 @@ int main(int argc, char **argv) {
 
   bool empty_printed = false;
   int i = 0;
+
   while (true) {
     if (args.command != NULL) {
-      handle_output_change(&original, &padded_length, &args);
+      handle_output_change(&padded_length, &args);
     }
 
-    if (args.command == NULL || strlen(original) > 0) {
+    if (args.command == NULL || padded_length > 0) {
+
       printf("%.*s", args.max_length, args.string + i);
       if (padded_length - i < args.max_length) {
         printf("%.*s", args.max_length - (padded_length - i), args.string);
       }
+
       i = (i + 1) % padded_length;
       args.new_line ? printf("\n") : printf("\r");
       empty_printed = false;
@@ -43,12 +42,12 @@ int main(int argc, char **argv) {
     }
 
     fflush(stdout);
+    printf("%c[2K", 27);
     nanosleep(&delay, NULL);
   }
 
   if (args.command != NULL) {
     free(args.string);
-    free(original);
   }
 
   return 0;

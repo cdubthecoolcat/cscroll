@@ -48,18 +48,15 @@ char *generate_command_output(char *command_string) {
   return output;
 }
 
-void handle_output_change(char **original, unsigned *padded_length,
-                          Args *args) {
+void handle_output_change(unsigned *padded_length, Args *args) {
   char *new_string = generate_command_output(args->command);
-  if (strcmp(*original, new_string) == 0) {
+  if (strcmp(args->string, new_string) == 0) {
     free(new_string);
     return;
   }
 
-  unsigned length = strlen(new_string);
   free(args->string);
   args->string = new_string;
-  *original = realloc(*original, sizeof(char) * (length + 1));
-  strlcpy(*original, new_string, length + 1);
   *padded_length = add_padding(args->string, args->padding);
+  args->max_length = *padded_length;
 }
