@@ -58,5 +58,8 @@ void handle_output_change(unsigned *padded_length, Args *args) {
   free(args->string);
   args->string = new_string;
   *padded_length = add_padding(args->string, args->padding);
-  args->max_length = *padded_length;
+
+  if (args->max_length == 0) {
+    args->max_length = *padded_length;
+  }
 }
