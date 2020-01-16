@@ -42,7 +42,6 @@ int main(int argc, char **argv) {
     }
 
     fflush(stdout);
-    printf("%c[2K", 27);
     nanosleep(&delay, NULL);
   }
 

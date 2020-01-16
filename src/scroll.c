@@ -54,12 +54,15 @@ void handle_output_change(unsigned *padded_length, Args *args) {
     free(new_string);
     return;
   }
+  unsigned original_length = *padded_length;
 
   free(args->string);
   args->string = new_string;
   *padded_length = add_padding(args->string, args->padding);
 
-  if (args->max_length == 0) {
+  if (args->max_length == original_length) {
     args->max_length = *padded_length;
   }
+
+  printf("%c[2K", 27);
 }
