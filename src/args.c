@@ -18,12 +18,11 @@ Args parse_args(int argc, char **argv) {
   }
   Args args = {
       0,     // padding
-      0,     // max_length
+      -1,     // max_length
       1.0,   // delay
       NULL,  // string
       NULL,  // command
       false, // new_line
-      false, // has max length
   };
   for (int i = 1; i < argc; ++i) {
     char *arg = argv[i];
@@ -39,7 +38,6 @@ Args parse_args(int argc, char **argv) {
         print_help(argv[0]);
       }
       args.max_length = atoi(arg_val);
-      args.has_max_length = true;
       ++i;
     } else if (strcmp(arg, "-d") == 0) {
       if (arg_val == NULL) {

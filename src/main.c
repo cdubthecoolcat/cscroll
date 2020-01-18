@@ -20,23 +20,23 @@ int main(int argc, char **argv) {
   }
 
   unsigned padded_length = add_padding(args.string, args.padding);
-  if (!args.has_max_length) {
-    args.max_length = padded_length;
-  }
 
   bool empty_printed = false;
   int i = 0;
+  unsigned printed_length = args.max_length == -1 ?
+    padded_length :
+    args.max_length;
 
   while (true) {
     if (args.command != NULL) {
-      handle_output_change(&padded_length, &args, &i);
+      handle_output_change(&padded_length, &printed_length, &args, &i);
     }
 
     if (args.command == NULL || padded_length > 0) {
 
-      printf("%.*s", args.max_length, args.string + i);
+      printf("%.*s", printed_length, args.string + i);
       if (padded_length - i < args.max_length) {
-        printf("%.*s", args.max_length - (padded_length - i), args.string);
+        printf("%.*s", printed_length - (padded_length - i), args.string);
       }
 
       i = (i + 1) % padded_length;
