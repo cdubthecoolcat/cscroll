@@ -4,8 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <signal.h>
+
+void handle_int(int sig) {
+  exit(0);
+}
 
 int main(int argc, char **argv) {
+  signal(SIGINT, &handle_int);
   Args args = parse_args(argc, argv);
   const struct timespec delay = generate_delay(args.delay);
 
@@ -14,7 +20,7 @@ int main(int argc, char **argv) {
   }
 
   unsigned padded_length = add_padding(args.string, args.padding);
-  if (args.max_length == 0) {
+  if (!args.has_max_length) {
     args.max_length = padded_length;
   }
 
@@ -23,7 +29,7 @@ int main(int argc, char **argv) {
 
   while (true) {
     if (args.command != NULL) {
-      handle_output_change(&padded_length, &args);
+      handle_output_change(&padded_length, &args, &i);
     }
 
     if (args.command == NULL || padded_length > 0) {

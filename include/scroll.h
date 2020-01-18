@@ -19,6 +19,6 @@ const struct timespec generate_delay(long double delay);
 char *generate_command_output(char *command_string);
 
 // checks if there is an output change
-void handle_output_change(unsigned *padded_length, Args *args);
+void handle_output_change(unsigned *padded_length, Args *args, int *scroller);
 
 #endif // SCROLL_H

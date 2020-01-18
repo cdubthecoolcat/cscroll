@@ -10,6 +10,7 @@ typedef struct {
   char *string;
   char *command;
   bool new_line;
+  bool has_max_length;
 } Args;
 
 // simple argument parser

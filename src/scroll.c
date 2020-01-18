@@ -7,7 +7,7 @@
 
 unsigned add_padding(char *string, int padding) {
   unsigned length = strlen(string);
-  if (padding <= 0) {
+  if (padding <= 0 || length <= 0) {
     return length;
   }
   for (int i = length; i < (length + padding); ++i) {
@@ -48,21 +48,24 @@ char *generate_command_output(char *command_string) {
   return output;
 }
 
-void handle_output_change(unsigned *padded_length, Args *args) {
+void handle_output_change(unsigned *padded_length, Args *args, int *scroller) {
   char *new_string = generate_command_output(args->command);
-  if (strcmp(args->string, new_string) == 0) {
+  if (strncmp(args->string, new_string, *padded_length - args->padding) == 0) {
     free(new_string);
     return;
   }
-  unsigned original_length = *padded_length;
+  
+  *scroller = 0;
 
   free(args->string);
   args->string = new_string;
   *padded_length = add_padding(args->string, args->padding);
 
-  if (args->max_length == original_length) {
+  if (!args->has_max_length) {
     args->max_length = *padded_length;
   }
 
-  printf("%c[2K", 27);
+  if (!args->new_line) {
+    printf("%c[2K", 27);
+  }
 }
