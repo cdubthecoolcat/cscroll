@@ -10,7 +10,7 @@
 unsigned add_padding(char *string, int padding);
 
 // shifts string by one. may switch to printing manip
-//void shift_string(char *string, unsigned padded_length);
+// void shift_string(char *string, unsigned padded_length);
 
 // split delay into seconds/nanoseconds
 const struct timespec generate_delay(long double delay);
@@ -19,10 +19,7 @@ const struct timespec generate_delay(long double delay);
 char *generate_command_output(char *command_string);
 
 // checks if there is an output change
-void handle_output_change(
-    unsigned *padded_length,
-    unsigned *printed_length,
-    Args *args,
-    int *scroller);
+void handle_output_change(unsigned *padded_length, unsigned *printed_length,
+                          Args *args, int *scroller);
 
 #endif // SCROLL_H

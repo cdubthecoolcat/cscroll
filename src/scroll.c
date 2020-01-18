@@ -18,11 +18,11 @@ unsigned add_padding(char *string, int padding) {
 }
 
 /*void shift_string(char *string, unsigned length) {*/
-  /*char first = string[0];*/
-  /*for (int i = 0; i < length - 1; ++i) {*/
-    /*string[i] = string[i + 1];*/
-  /*}*/
-  /*string[length - 1] = first;*/
+/*char first = string[0];*/
+/*for (int i = 0; i < length - 1; ++i) {*/
+/*string[i] = string[i + 1];*/
+/*}*/
+/*string[length - 1] = first;*/
 /*}*/
 
 const struct timespec generate_delay(long double delay) {
@@ -51,11 +51,8 @@ char *generate_command_output(char *command_string) {
   return output;
 }
 
-void handle_output_change(
-    unsigned *padded_length,
-    unsigned *printed_length,
-    Args *args,
-    int *scroller) {
+void handle_output_change(unsigned *padded_length, unsigned *printed_length,
+                          Args *args, int *scroller) {
   char *new_string = generate_command_output(args->command);
   if (strncmp(args->string, new_string, *padded_length - args->padding) == 0) {
     free(new_string);
@@ -68,9 +65,7 @@ void handle_output_change(
   args->string = new_string;
   *padded_length = add_padding(args->string, args->padding);
 
-  *printed_length = args->max_length == -1 ?
-    *padded_length :
-    args->max_length;
+  *printed_length = args->max_length == -1 ? *padded_length : args->max_length;
 
   if (!args->new_line) {
     printf("%c[2K", 27);

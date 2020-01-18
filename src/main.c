@@ -1,14 +1,12 @@
 #include "args.h"
 #include "scroll.h"
 #include <bsd/string.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <signal.h>
 
-void handle_int(int sig) {
-  exit(0);
-}
+void handle_int(int sig) { exit(0); }
 
 int main(int argc, char **argv) {
   signal(SIGINT, &handle_int);
@@ -23,9 +21,8 @@ int main(int argc, char **argv) {
 
   bool empty_printed = false;
   int i = 0;
-  unsigned printed_length = args.max_length == -1 ?
-    padded_length :
-    args.max_length;
+  unsigned printed_length =
+      args.max_length == -1 ? padded_length : args.max_length;
 
   while (true) {
     if (args.command != NULL) {

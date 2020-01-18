@@ -5,6 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void check_errors(void* pointer);
+void check_errors(void *pointer);
 
 #endif // ERROR_H

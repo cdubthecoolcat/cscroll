@@ -18,7 +18,7 @@ Args parse_args(int argc, char **argv) {
   }
   Args args = {
       0,     // padding
-      -1,     // max_length
+      -1,    // max_length
       1.0,   // delay
       NULL,  // string
       NULL,  // command
