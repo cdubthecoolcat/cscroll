@@ -1,5 +1,7 @@
 #include "args.h"
-#include "scroll.h"
+#include "command.h"
+#include "padding.h"
+#include "timer.h"
 #include <bsd/string.h>
 #include <signal.h>
 #include <stdio.h>

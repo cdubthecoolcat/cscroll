@@ -1,40 +1,9 @@
-#include "scroll.h"
+#include "command.h"
 #include "error.h"
+#include "padding.h"
 #include <bsd/string.h>
-#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-
-unsigned add_padding(Args *args) {
-  unsigned length = strlen(args->string);
-  if (args->padding <= 0 || length <= 0) {
-    return length;
-  }
-
-  for (int i = 0; i < args->padding; ++i) {
-    unsigned cat_len = length + (i + 2) * args->p_string_len;
-    strlcat(args->string, args->padding_string, cat_len);
-  }
-  return length + (args->padding * args->p_string_len);
-}
-
-/*void shift_string(char *string, unsigned length) {*/
-/*char first = string[0];*/
-/*for (int i = 0; i < length - 1; ++i) {*/
-/*string[i] = string[i + 1];*/
-/*}*/
-/*string[length - 1] = first;*/
-/*}*/
-
-const struct timespec generate_delay(long double delay) {
-  unsigned seconds = 0;
-  unsigned nanoseconds = 0;
-
-  seconds = (int)floor(delay);
-  nanoseconds = (delay - seconds) * NANO_MULTI;
-  return (const struct timespec){seconds, nanoseconds};
-}
 
 char *generate_command_output(char *command_string) {
   FILE *command = popen(command_string, "r");
@@ -56,7 +25,8 @@ char *generate_command_output(char *command_string) {
 void handle_output_change(unsigned *padded_length, unsigned *printed_length,
                           Args *args, int *scroller) {
   char *new_string = generate_command_output(args->command);
-  if (strncmp(args->string, new_string, *padded_length - (args->padding * args->p_string_len)) == 0) {
+  if (strncmp(args->string, new_string,
+              *padded_length - (args->padding * args->p_string_len)) == 0) {
     free(new_string);
     return;
   }
