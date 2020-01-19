@@ -34,10 +34,11 @@ int main(int argc, char **argv) {
 
     if (args.command == NULL || padded_length > 0) {
 
-      printf("%.*s", printed_length, args.string + i);
-      if (padded_length - i < args.max_length) {
-        printf("%.*s", printed_length - (padded_length - i), args.string);
-      }
+      printf("%.*s%.*s", printed_length, args.string + i,
+             padded_length - i < args.max_length
+                 ? printed_length - (padded_length - i)
+                 : 0,
+             args.string);
 
       i = (i + 1) % padded_length;
       args.new_line ? printf("\n") : printf("\r");
