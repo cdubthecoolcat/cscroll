@@ -12,11 +12,11 @@ unsigned add_padding(Args *args) {
     return length;
   }
 
-  unsigned padding_string_len = strlen(args->padding_string);
-  for (int i = length; i < (length + args->padding); ++i) {
-    strlcat(args->string, args->padding_string, i + 1 + padding_string_len);
+  for (int i = 0; i < args->padding; ++i) {
+    unsigned cat_len = length + (i + 2) * args->p_string_len;
+    strlcat(args->string, args->padding_string, cat_len);
   }
-  return length + (args->padding * padding_string_len);
+  return length + (args->padding * args->p_string_len);
 }
 
 /*void shift_string(char *string, unsigned length) {*/
@@ -56,8 +56,7 @@ char *generate_command_output(char *command_string) {
 void handle_output_change(unsigned *padded_length, unsigned *printed_length,
                           Args *args, int *scroller) {
   char *new_string = generate_command_output(args->command);
-  unsigned padding_string_len = strlen(args->padding_string);
-  if (strncmp(args->string, new_string, *padded_length - (args->padding * padding_string_len)) == 0) {
+  if (strncmp(args->string, new_string, *padded_length - (args->padding * args->p_string_len)) == 0) {
     free(new_string);
     return;
   }

@@ -10,6 +10,7 @@ void handle_int(int sig) { exit(0); }
 
 int main(int argc, char **argv) {
   signal(SIGINT, &handle_int);
+
   Args args = parse_args(argc, argv);
   const struct timespec delay = generate_delay(args.delay);
 

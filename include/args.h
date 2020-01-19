@@ -11,6 +11,7 @@ typedef struct {
   char *string;
   char *command;
   bool new_line;
+  int p_string_len;
 } Args;
 
 // simple argument parser

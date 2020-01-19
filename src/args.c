@@ -24,6 +24,7 @@ Args parse_args(int argc, char **argv) {
       NULL,  // string
       NULL,  // command
       false, // new_line
+      1, // p_string_len
   };
   for (int i = 1; i < argc; ++i) {
     char *arg = argv[i];
@@ -39,6 +40,7 @@ Args parse_args(int argc, char **argv) {
         print_help(argv[0]);
       }
       args.padding_string = arg_val;
+      args.p_string_len = strlen(arg_val);
       ++i;
     } else if (strcmp(arg, "-m") == 0) {
       if (arg_val == NULL) {
