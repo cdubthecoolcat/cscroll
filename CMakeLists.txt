@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
-set(CMAKE_C_COMPILER "clang-9")
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_C_COMPILER "clang")
+set(CMAKE_C_FLAGS "-O3 -Wall")
+set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
 project(cscroll)
 
