@@ -18,6 +18,7 @@ Args parse_args(int argc, char **argv) {
   }
   Args args = {
       0,     // padding
+      " ",  // padding string
       -1,    // max_length
       1.0,   // delay
       NULL,  // string
@@ -32,6 +33,12 @@ Args parse_args(int argc, char **argv) {
         print_help(argv[0]);
       }
       args.padding = atoi(arg_val);
+      ++i;
+    } else if (strcmp(arg, "-P") == 0) {
+      if (arg_val == NULL) {
+        print_help(argv[0]);
+      }
+      args.padding_string = arg_val;
       ++i;
     } else if (strcmp(arg, "-m") == 0) {
       if (arg_val == NULL) {

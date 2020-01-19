@@ -7,7 +7,7 @@
 #define NANO_MULTI 1e9
 
 // adds padding to string
-unsigned add_padding(char *string, int padding);
+unsigned add_padding(Args *args);
 
 // shifts string by one. may switch to printing manip
 // void shift_string(char *string, unsigned padded_length);

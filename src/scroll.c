@@ -6,15 +6,17 @@
 #include <stdlib.h>
 #include <time.h>
 
-unsigned add_padding(char *string, int padding) {
-  unsigned length = strlen(string);
-  if (padding <= 0 || length <= 0) {
+unsigned add_padding(Args *args) {
+  unsigned length = strlen(args->string);
+  if (args->padding <= 0 || length <= 0) {
     return length;
   }
-  for (int i = length; i < (length + padding); ++i) {
-    strlcat(string, " ", i + 2);
+
+  unsigned padding_string_len = strlen(args->padding_string);
+  for (int i = length; i < (length + args->padding); ++i) {
+    strlcat(args->string, args->padding_string, i + 1 + padding_string_len);
   }
-  return length + padding;
+  return length + (args->padding * padding_string_len);
 }
 
 /*void shift_string(char *string, unsigned length) {*/
@@ -54,7 +56,8 @@ char *generate_command_output(char *command_string) {
 void handle_output_change(unsigned *padded_length, unsigned *printed_length,
                           Args *args, int *scroller) {
   char *new_string = generate_command_output(args->command);
-  if (strncmp(args->string, new_string, *padded_length - args->padding) == 0) {
+  unsigned padding_string_len = strlen(args->padding_string);
+  if (strncmp(args->string, new_string, *padded_length - (args->padding * padding_string_len)) == 0) {
     free(new_string);
     return;
   }
@@ -63,7 +66,7 @@ void handle_output_change(unsigned *padded_length, unsigned *printed_length,
 
   free(args->string);
   args->string = new_string;
-  *padded_length = add_padding(args->string, args->padding);
+  *padded_length = add_padding(args);
 
   *printed_length = args->max_length == -1 ? *padded_length : args->max_length;
 

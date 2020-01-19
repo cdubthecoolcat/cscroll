@@ -17,7 +17,7 @@ int main(int argc, char **argv) {
     args.string = generate_command_output(args.command);
   }
 
-  unsigned padded_length = add_padding(args.string, args.padding);
+  unsigned padded_length = add_padding(&args);
 
   bool empty_printed = false;
   int i = 0;

@@ -5,12 +5,12 @@
 
 typedef struct {
   int padding;
+  char *padding_string;
   int max_length;
   long double delay;
   char *string;
   char *command;
   bool new_line;
-  bool has_max_length;
 } Args;
 
 // simple argument parser
