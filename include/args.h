@@ -1,7 +1,10 @@
 #ifndef ARGS_H
 
 #define ARGS_H
+
 #include <stdbool.h>
+
+#define FLAG_LEN 2
 
 typedef struct {
   int padding;

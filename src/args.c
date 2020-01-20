@@ -38,7 +38,7 @@ Args parse_args(int argc, char** argv) {
     char* arg = argv[i];
     char* arg_val = argv[i + 1];
 
-    if (strcmp(arg, "-p") == 0) { // padding
+    if (strncmp(arg, "-p", FLAG_LEN) == 0) {  // padding
       if (arg_val == NULL) {
         print_help(argv[0]);
       }
@@ -46,7 +46,7 @@ Args parse_args(int argc, char** argv) {
       args.padding = atoi(arg_val);
 
       ++i;
-    } else if (strcmp(arg, "-P") == 0) { // padding_string
+    } else if (strncmp(arg, "-P", FLAG_LEN) == 0) {  // padding_string
       if (arg_val == NULL) {
         print_help(argv[0]);
       }
@@ -55,7 +55,7 @@ Args parse_args(int argc, char** argv) {
       args.p_string_len = strlen(arg_val);
 
       ++i;
-    } else if (strcmp(arg, "-m") == 0) { // max_length
+    } else if (strncmp(arg, "-m", FLAG_LEN) == 0) {  // max_length
       if (arg_val == NULL) {
         print_help(argv[0]);
       }
@@ -63,7 +63,7 @@ Args parse_args(int argc, char** argv) {
       args.max_length = atoi(arg_val);
 
       ++i;
-    } else if (strcmp(arg, "-d") == 0) { // delay
+    } else if (strncmp(arg, "-d", FLAG_LEN) == 0) {  // delay
       if (arg_val == NULL) {
         print_help(argv[0]);
       }
@@ -71,7 +71,7 @@ Args parse_args(int argc, char** argv) {
       args.delay = atof(arg_val);
 
       ++i;
-    } else if (strcmp(arg, "-c") == 0) { // command
+    } else if (strncmp(arg, "-c", FLAG_LEN) == 0) {  // command
       if (arg_val == NULL) {
         print_help(argv[0]);
       }
@@ -79,11 +79,11 @@ Args parse_args(int argc, char** argv) {
       args.command = arg_val;
 
       ++i;
-    } else if (strcmp(arg, "-n") == 0) { // new_line
+    } else if (strncmp(arg, "-n", FLAG_LEN) == 0) {  // new_line
       args.new_line = true;
-    } else if (strcmp(arg, "-h") == 0) { // print_help
+    } else if (strncmp(arg, "-h", FLAG_LEN) == 0) {  // print_help
       print_help(argv[0]);
-    } else { // string
+    } else {  // string
       if (args.string == NULL) {
         args.string = arg;
       }

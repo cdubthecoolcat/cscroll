@@ -3,10 +3,10 @@
 #include "timer.h"
 
 const struct timespec generate_delay(long double delay) {
-  unsigned seconds = 0;
-  unsigned nanoseconds = 0;
+  __time_t seconds = 0;
+  __syscall_slong_t nanoseconds = 0;
 
-  seconds = (int)delay;
+  seconds = (__time_t)delay;
   nanoseconds = (delay - seconds) * NANO_MULTI;
   return (const struct timespec){seconds, nanoseconds};
 }

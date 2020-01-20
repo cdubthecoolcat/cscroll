@@ -8,11 +8,10 @@
 
 char* generate_command_output(char* command_string) {
   FILE* command = popen(command_string, "r");
-  char buf[256];
-  char* output = malloc(sizeof(char));
+  char buf[BUFFER_LENGTH];
+  char* output = calloc(1, sizeof(char));
   check_errors(output);
-  output[0] = 0;
-  unsigned buf_len = 0;
+  size_t buf_len = 0;
 
   while (fgets(buf, sizeof(buf), command) != 0) {
     buf_len += strlen(buf);
@@ -45,6 +44,6 @@ void handle_output_change(unsigned* padded_length,
   *printed_length = args->max_length == -1 ? *padded_length : args->max_length;
 
   if (!args->new_line) {
-    printf("%c[2K", 27);
+    CLEAR();
   }
 }
