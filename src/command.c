@@ -1,14 +1,15 @@
-#include "command.h"
-#include "error.h"
-#include "padding.h"
 #include <bsd/string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-char *generate_command_output(char *command_string) {
-  FILE *command = popen(command_string, "r");
+#include "command.h"
+#include "error.h"
+#include "padding.h"
+
+char* generate_command_output(char* command_string) {
+  FILE* command = popen(command_string, "r");
   char buf[256];
-  char *output = malloc(sizeof(char));
+  char* output = malloc(sizeof(char));
   check_errors(output);
   output[0] = '\0';
   unsigned buf_len = 0;
@@ -22,9 +23,11 @@ char *generate_command_output(char *command_string) {
   return output;
 }
 
-void handle_output_change(unsigned *padded_length, unsigned *printed_length,
-                          Args *args, int *scroller) {
-  char *new_string = generate_command_output(args->command);
+void handle_output_change(unsigned* padded_length,
+                          unsigned* printed_length,
+                          Args* args,
+                          int* scroller) {
+  char* new_string = generate_command_output(args->command);
   if (strncmp(args->string, new_string,
               *padded_length - (args->padding * args->p_string_len)) == 0) {
     free(new_string);

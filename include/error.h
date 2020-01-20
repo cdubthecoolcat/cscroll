@@ -2,6 +2,6 @@
 
 #define ERROR_H
 
-void check_errors(void *pointer);
+void check_errors(void* pointer);
 
-#endif // ERROR_H
+#endif  // ERROR_H

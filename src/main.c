@@ -1,16 +1,19 @@
-#include "args.h"
-#include "command.h"
-#include "padding.h"
-#include "timer.h"
 #include <bsd/string.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-void handle_int(int sig) { exit(0); }
+#include "args.h"
+#include "command.h"
+#include "padding.h"
+#include "timer.h"
 
-int main(int argc, char **argv) {
+void handle_int(int sig) {
+  exit(0);
+}
+
+int main(int argc, char** argv) {
   signal(SIGINT, &handle_int);
 
   Args args = parse_args(argc, argv);
@@ -33,7 +36,6 @@ int main(int argc, char **argv) {
     }
 
     if (args.command == NULL || padded_length > 0) {
-
       printf("%.*s%.*s", printed_length, args.string + i,
              padded_length - i < args.max_length
                  ? printed_length - (padded_length - i)

@@ -7,4 +7,4 @@
 // split delay into seconds/nanoseconds
 const struct timespec generate_delay(long double delay);
 
-#endif // TIMER_H
+#endif  // TIMER_H

@@ -1,7 +1,8 @@
-#include "padding.h"
 #include <bsd/string.h>
 
-unsigned add_padding(Args *args) {
+#include "padding.h"
+
+unsigned add_padding(Args* args) {
   unsigned length = strlen(args->string);
   if (args->padding <= 0 || length <= 0) {
     return length;
