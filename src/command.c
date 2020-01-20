@@ -11,14 +11,16 @@ char* generate_command_output(char* command_string) {
   char buf[256];
   char* output = malloc(sizeof(char));
   check_errors(output);
-  output[0] = '\0';
+  output[0] = 0;
   unsigned buf_len = 0;
+
   while (fgets(buf, sizeof(buf), command) != 0) {
     buf_len += strlen(buf);
     output = realloc(output, sizeof(char) * (buf_len + 1));
     check_errors(output);
     strlcat(output, buf, buf_len);
   }
+
   pclose(command);
   return output;
 }

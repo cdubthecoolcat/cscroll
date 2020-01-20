@@ -4,6 +4,8 @@
 
 #include "args.h"
 
+#ifdef DEBUG
+
 void print_args(Args* args) {
   printf("Padding: %d\n", args->padding);
   printf("Max Length: %d\n", args->max_length);
@@ -12,11 +14,15 @@ void print_args(Args* args) {
   fflush(stdout);
 }
 
+#endif
+
 // For argument parsing
 Args parse_args(int argc, char** argv) {
   if (argc <= 1) {
     print_help(argv[0]);
   }
+
+  // defaults
   Args args = {
       0,      // padding
       " ",    // padding string
@@ -27,45 +33,57 @@ Args parse_args(int argc, char** argv) {
       false,  // new_line
       1,      // p_string_len
   };
+
   for (int i = 1; i < argc; ++i) {
     char* arg = argv[i];
     char* arg_val = argv[i + 1];
-    if (strcmp(arg, "-p") == 0) {
+
+    if (strcmp(arg, "-p") == 0) { // padding
       if (arg_val == NULL) {
         print_help(argv[0]);
       }
+
       args.padding = atoi(arg_val);
+
       ++i;
-    } else if (strcmp(arg, "-P") == 0) {
+    } else if (strcmp(arg, "-P") == 0) { // padding_string
       if (arg_val == NULL) {
         print_help(argv[0]);
       }
+
       args.padding_string = arg_val;
       args.p_string_len = strlen(arg_val);
+
       ++i;
-    } else if (strcmp(arg, "-m") == 0) {
+    } else if (strcmp(arg, "-m") == 0) { // max_length
       if (arg_val == NULL) {
         print_help(argv[0]);
       }
+
       args.max_length = atoi(arg_val);
+
       ++i;
-    } else if (strcmp(arg, "-d") == 0) {
+    } else if (strcmp(arg, "-d") == 0) { // delay
       if (arg_val == NULL) {
         print_help(argv[0]);
       }
+
       args.delay = atof(arg_val);
+
       ++i;
-    } else if (strcmp(arg, "-c") == 0) {
+    } else if (strcmp(arg, "-c") == 0) { // command
       if (arg_val == NULL) {
         print_help(argv[0]);
       }
+
       args.command = arg_val;
+
       ++i;
-    } else if (strcmp(arg, "-n") == 0) {
+    } else if (strcmp(arg, "-n") == 0) { // new_line
       args.new_line = true;
-    } else if (strcmp(arg, "-h") == 0) {
+    } else if (strcmp(arg, "-h") == 0) { // print_help
       print_help(argv[0]);
-    } else {
+    } else { // string
       if (args.string == NULL) {
         args.string = arg;
       }

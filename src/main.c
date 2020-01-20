@@ -9,8 +9,10 @@
 #include "padding.h"
 #include "timer.h"
 
+bool stopped = false;
+
 void handle_int(int sig) {
-  exit(0);
+  stopped = true;
 }
 
 int main(int argc, char** argv) {
@@ -30,7 +32,7 @@ int main(int argc, char** argv) {
   unsigned printed_length =
       args.max_length == -1 ? padded_length : args.max_length;
 
-  while (true) {
+  while (!stopped) {
     if (args.command != NULL) {
       handle_output_change(&padded_length, &printed_length, &args, &i);
     }
