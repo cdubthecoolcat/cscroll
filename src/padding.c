@@ -2,7 +2,7 @@
 
 #include "padding.h"
 
-unsigned add_padding(Args* args) {
+unsigned add_padding(struct arguments* args) {
   unsigned length = strlen(args->string);
   if (args->padding <= 0 || length <= 0) {
     return length;

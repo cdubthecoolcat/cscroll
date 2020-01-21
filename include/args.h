@@ -3,10 +3,11 @@
 #define ARGS_H
 
 #include <stdbool.h>
+#include <argp.h>
 
 #define FLAG_LEN 2
 
-typedef struct {
+struct arguments {
   int padding;
   char* padding_string;
   int max_length;
@@ -15,11 +16,11 @@ typedef struct {
   char* command;
   bool new_line;
   int p_string_len;
-} Args;
+};
 
-// simple argument parser
-// needs some work
-Args parse_args(int argc, char** argv);
+extern struct argp_option options[];
+extern error_t parse_opt(int key, char* arg, struct argp_state* state);
+extern struct argp argp;
 
 // print the help dialog
 void print_help(char* command);

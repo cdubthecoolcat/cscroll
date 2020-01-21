@@ -26,7 +26,7 @@ char* generate_command_output(char* command_string) {
 
 void handle_output_change(unsigned* padded_length,
                           unsigned* printed_length,
-                          Args* args,
+                          struct arguments* args,
                           int* scroller) {
   char* new_string = generate_command_output(args->command);
   if (strncmp(args->string, new_string,

@@ -13,7 +13,7 @@ char* generate_command_output(char* command_string);
 // checks if there is an output change
 void handle_output_change(unsigned* padded_length,
                           unsigned* printed_length,
-                          Args* args,
+                          struct arguments* args,
                           int* scroller);
 
 #endif  // COMMAND_H

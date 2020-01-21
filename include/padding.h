@@ -4,6 +4,6 @@
 
 #include "args.h"
 
-unsigned add_padding(Args* args);
+unsigned add_padding(struct arguments* args);
 
 #endif  // PADDING_H

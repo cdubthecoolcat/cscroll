@@ -18,7 +18,20 @@ void handle_int(int sig) {
 int main(int argc, char** argv) {
   signal(SIGINT, &handle_int);
 
-  Args args = parse_args(argc, argv);
+  // defaults
+  struct arguments args = {
+      0,      // padding
+      " ",    // padding string
+      -1,     // max_length
+      1.0,    // delay
+      NULL,   // string
+      NULL,   // command
+      false,  // new_line
+      1,      // p_string_len
+  };
+  
+  argp_parse(&argp, argc, argv, 0, 0, &args);
+
   const struct timespec delay = generate_delay(args.delay);
 
   if (args.command != NULL) {
