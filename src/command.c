@@ -15,12 +15,10 @@ char* generate_command_output(char* command_string, size_t padding) {
 
   while (fgets(buf, sizeof(buf), command) != 0) {
     buf_len += strlen(buf);
-    output = realloc(output, sizeof(char) * (buf_len + 1));
+    output = realloc(output, sizeof(char) * (buf_len + padding + 1));
     check_errors(output);
     strlcat(output, buf, buf_len);
   }
-
-  output = realloc(output, sizeof(char) * (buf_len + padding + 1));
 
   pclose(command);
   return output;
