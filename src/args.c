@@ -37,6 +37,7 @@ error_t parse_opt(int key, char* arg, struct argp_state* state) {
       break;
     case 'P':
       arguments->padding_string = arg;
+      arguments->p_string_len = strlen(arg);
       break;
     case 'm':
       arguments->max_length = atoi(arg);

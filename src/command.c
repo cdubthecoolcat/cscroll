@@ -6,7 +6,7 @@
 #include "error.h"
 #include "padding.h"
 
-char* generate_command_output(char* command_string) {
+char* generate_command_output(char* command_string, size_t padding) {
   FILE* command = popen(command_string, "r");
   char buf[BUFFER_LENGTH];
   char* output = calloc(1, sizeof(char));
@@ -20,6 +20,8 @@ char* generate_command_output(char* command_string) {
     strlcat(output, buf, buf_len);
   }
 
+  output = realloc(output, sizeof(char) * (buf_len + padding + 1));
+
   pclose(command);
   return output;
 }
@@ -28,7 +30,7 @@ void handle_output_change(unsigned* padded_length,
                           unsigned* printed_length,
                           struct arguments* args,
                           int* scroller) {
-  char* new_string = generate_command_output(args->command);
+  char* new_string = generate_command_output(args->command, args->padding * args->p_string_len);
   if (strncmp(args->string, new_string,
               *padded_length - (args->padding * args->p_string_len)) == 0) {
     free(new_string);

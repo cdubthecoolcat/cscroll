@@ -9,13 +9,13 @@
 
 struct arguments {
   int padding;
-  char* padding_string;
   int max_length;
+  int p_string_len;
   long double delay;
   char* string;
   char* command;
+  char* padding_string;
   bool new_line;
-  int p_string_len;
 };
 
 extern struct argp_option options[];
