@@ -1,5 +1,5 @@
 # cscroll
-[![Actions Status](https://github.com/cdubthecoolcat/cscroll/workflows/C%2FC++%20CI/badge.svg)](https://github.com/cdubthecoolcat/cscroll/actions)
+[![Actions Status](https://github.com/cdubthecoolcat/cscroll/workflows/Build/badge.svg)](https://github.com/cdubthecoolcat/cscroll/actions)
 
 A simple terminal text scroller
 
