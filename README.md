@@ -19,5 +19,5 @@ A simple terminal text scroller
   -P, --padding_str=STRING   String to use for padding
   -s, --string=STRING        String used to scroll
   -?, --help                 Give this help list
-  --usage                Give a short usage message
+      --usage                Give a short usage message
 ```
