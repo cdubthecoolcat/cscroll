@@ -16,26 +16,19 @@ void print_args(struct arguments* args) {
 
 #endif
 
-
-struct argp argp = {
-  options,
-  parse_opt,
-  "",
-  "A simple terminal text scroller"
-};
+struct argp argp = {options, parse_opt, "", "A simple terminal text scroller"};
 
 struct argp_option options[] = {
-  { "padding", 'p', "PADDING", 0, "Amount of padding to add" },
-  { "padding_str", 'P', "STRING", 0, "String to use for padding" },
-  { "max_length", 'm', "LENGTH", 0, "Max length for printing" },
-  { "delay", 'd', "DELAY", 0, "Delay between shifts" },
-  { "string", 's', "STRING", 0, "String used to scroll" },
-  { "command", 'c', "COMMAND", 0, "Shell command to get string from" },
-  { "new_line", 'n', 0, 0, "Print new line after each print" },
-  { 0 }
-};
+    {"padding", 'p', "PADDING", 0, "Amount of padding to add"},
+    {"padding_str", 'P', "STRING", 0, "String to use for padding"},
+    {"max_length", 'm', "LENGTH", 0, "Max length for printing"},
+    {"delay", 'd', "DELAY", 0, "Delay between shifts"},
+    {"string", 's', "STRING", 0, "String used to scroll"},
+    {"command", 'c', "COMMAND", 0, "Shell command to get string from"},
+    {"new_line", 'n', 0, 0, "Print new line after each print"},
+    {0}};
 
-error_t parse_opt(int key, char *arg, struct argp_state *state) {
+error_t parse_opt(int key, char* arg, struct argp_state* state) {
   struct arguments* arguments = state->input;
 
   switch (key) {

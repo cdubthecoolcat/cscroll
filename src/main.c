@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
       false,  // new_line
       1,      // p_string_len
   };
-  
+
   argp_parse(&argp, argc, argv, 0, 0, &args);
 
   const struct timespec delay = generate_delay(args.delay);

@@ -2,8 +2,8 @@
 
 #define ARGS_H
 
-#include <stdbool.h>
 #include <argp.h>
+#include <stdbool.h>
 
 #define FLAG_LEN 2
 
