@@ -14,6 +14,6 @@ char* generate_command_output(char* command_string, size_t padding);
 void handle_output_change(unsigned* padded_length,
                           unsigned* printed_length,
                           struct arguments* args,
-                          int* scroller);
+                          unsigned* scroller);
 
 #endif  // COMMAND_H

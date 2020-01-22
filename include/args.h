@@ -16,6 +16,7 @@ struct arguments {
   char* command;
   char* padding_string;
   bool new_line;
+  bool reverse;
 };
 
 extern struct argp_option options[];

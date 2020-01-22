@@ -26,6 +26,7 @@ struct argp_option options[] = {
     {"string", 's', "STRING", 0, "String used to scroll"},
     {"command", 'c', "COMMAND", 0, "Shell command to get string from"},
     {"new_line", 'n', 0, 0, "Print new line after each print"},
+    {"reverse", 'r', 0, 0, "Reverse scrolling"},
     {0}};
 
 error_t parse_opt(int key, char* arg, struct argp_state* state) {
@@ -53,6 +54,9 @@ error_t parse_opt(int key, char* arg, struct argp_state* state) {
       break;
     case 'n':
       arguments->new_line = true;
+      break;
+    case 'r':
+      arguments->reverse = true;
       break;
     default:
       return ARGP_ERR_UNKNOWN;
