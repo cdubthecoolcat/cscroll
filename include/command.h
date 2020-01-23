@@ -7,12 +7,12 @@
 #define BUFFER_LENGTH 256
 #define CLEAR() printf("%c[2K", 27)
 
-// returns output of given command
-char* generate_command_output(char* command_string, size_t padding);
+// returns output of given cmd
+char* gen_cmd_output(char* cmd_str, size_t pad);
 
 // checks if there is an output change
-void handle_output_change(unsigned* padded_length,
-                          unsigned* printed_length,
+void handle_output_change(unsigned* full_len,
+                          unsigned* print_len,
                           struct arguments* args,
                           unsigned* scroller);
 

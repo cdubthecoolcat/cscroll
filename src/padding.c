@@ -2,15 +2,15 @@
 
 #include "padding.h"
 
-unsigned add_padding(struct arguments* args) {
-  unsigned length = strlen(args->string);
-  if (args->padding <= 0 || length <= 0) {
-    return length;
+unsigned add_pad(struct arguments* args) {
+  unsigned len = strlen(args->str);
+  if (args->pad <= 0 || len <= 0) {
+    return len;
   }
 
-  for (int i = 0; i < args->padding; ++i) {
-    size_t cat_len = length + (i + 2) * args->p_string_len;
-    strlcat(args->string, args->padding_string, cat_len);
+  for (int i = 0; i < args->pad; ++i) {
+    size_t cat_len = len + (i + 2) * args->p_str_len;
+    strlcat(args->str, args->pad_str, cat_len);
   }
-  return length + (args->padding * args->p_string_len);
+  return len + (args->pad * args->p_str_len);
 }

@@ -22,50 +22,47 @@ int main(int argc, char** argv) {
 
   // defaults
   struct arguments args = {
-      0,      // padding
-      -1,     // max_length
-      1,      // p_string_len
+      0,      // pad
+      -1,     // max_len
+      1,      // p_str_len
       1.0,    // delay
-      NULL,   // string
-      NULL,   // command
-      " ",    // padding string
+      NULL,   // str
+      NULL,   // cmd
+      " ",    // pad str
       false,  // new_line
       false,  // reverse
   };
 
   argp_parse(&argp, argc, argv, 0, 0, &args);
 
-  const struct timespec delay = generate_delay(args.delay);
+  const struct timespec delay = gen_delay(args.delay);
 
-  if (args.command != NULL) {
-    args.string =
-        generate_command_output(args.command, args.padding * args.p_string_len);
+  if (args.cmd != NULL) {
+    args.str = gen_cmd_output(args.cmd, args.pad * args.p_str_len);
   }
 
-  unsigned padded_length = add_padding(&args);
+  unsigned full_len = add_pad(&args);
 
   bool empty_printed = false;
-  unsigned i = 0, position,
-           printed_length =
-               args.max_length == -1 ? padded_length : args.max_length;
+  unsigned i = 0;
+  unsigned pos;
+  unsigned print_len = args.max_len == -1 ? full_len : args.max_len;
 
   setbuf(stdout, NULL);
 
   while (!stopped) {
-    if (args.command != NULL) {
-      handle_output_change(&padded_length, &printed_length, &args, &i);
+    if (args.cmd != NULL) {
+      handle_output_change(&full_len, &print_len, &args, &i);
     }
 
-    position = args.reverse ? padded_length - i : i;
+    pos = args.reverse ? full_len - i : i;
 
-    if (args.command == NULL || padded_length > 0) {
-      printf("%.*s%.*s%s", printed_length, args.string + position,
-             padded_length - i < args.max_length
-                 ? printed_length - (padded_length - position)
-                 : 0,
-             args.string, args.new_line ? "\n" : "\r");
+    if (full_len != 0) {
+      printf("%.*s%.*s%s", print_len, args.str + pos,
+             full_len - pos < print_len ? print_len - (full_len - pos) : 0,
+             args.str, args.new_line ? "\n" : "\r");
 
-      i = (i + 1) % padded_length;
+      i = (i + 1) % full_len;
       empty_printed = false;
     } else if (!empty_printed) {
       args.new_line ? printf("\n") : printf("\r");
@@ -75,8 +72,8 @@ int main(int argc, char** argv) {
     nanosleep(&delay, NULL);
   }
 
-  if (args.command != NULL) {
-    free(args.string);
+  if (args.cmd != NULL) {
+    free(args.str);
   }
 
   return 0;

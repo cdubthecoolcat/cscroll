@@ -2,7 +2,7 @@
 
 #include "timer.h"
 
-const struct timespec generate_delay(long double delay) {
+const struct timespec gen_delay(long double delay) {
   __time_t seconds = 0;
   __syscall_slong_t nanoseconds = 0;
 
