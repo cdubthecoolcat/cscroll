@@ -41,18 +41,19 @@ int main(int argc, char** argv) {
     args.str = gen_cmd_output(args.cmd, args.pad * args.p_str_len);
   }
 
-  unsigned full_len = add_pad(&args);
+  char* full_pad = NULL;
+  unsigned full_len = add_pad(&args, &full_pad);
 
   bool empty_printed = false;
   unsigned i = 0;
   unsigned pos;
   unsigned print_len = args.max_len == -1 ? full_len : args.max_len;
 
-  setbuf(stdout, NULL);
+  setvbuf(stdout, NULL, _IOFBF, BUFSIZ);
 
   while (!stopped) {
     if (args.cmd != NULL) {
-      handle_output_change(&full_len, &print_len, &args, &i);
+      handle_output_change(&full_len, &print_len, &args, &full_pad, &i);
     }
 
     pos = args.reverse ? full_len - i : i;
@@ -68,6 +69,8 @@ int main(int argc, char** argv) {
       args.new_line ? printf("\n") : printf("\r");
       empty_printed = true;
     }
+
+    fflush(stdout);
 
     nanosleep(&delay, NULL);
   }

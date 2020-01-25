@@ -14,6 +14,7 @@ char* gen_cmd_output(char* cmd_str, size_t pad);
 void handle_output_change(unsigned* full_len,
                           unsigned* print_len,
                           struct arguments* args,
+                          char** full_pad,
                           unsigned* scroller);
 
 #endif  // COMMAND_H

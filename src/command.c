@@ -27,6 +27,7 @@ char* gen_cmd_output(char* cmd_str, size_t pad) {
 void handle_output_change(unsigned* full_len,
                           unsigned* print_len,
                           struct arguments* args,
+                          char** full_pad,
                           unsigned* scroller) {
   unsigned pad_len = args->pad * args->p_str_len;
   char* new_str = gen_cmd_output(args->cmd, pad_len);
@@ -39,7 +40,7 @@ void handle_output_change(unsigned* full_len,
 
   free(args->str);
   args->str = new_str;
-  *full_len = add_pad(args);
+  *full_len = add_pad(args, full_pad);
 
   *print_len = args->max_len == -1 ? *full_len : args->max_len;
 

@@ -1,16 +1,26 @@
 #include <bsd/string.h>
+#include <stdlib.h>
 
 #include "padding.h"
 
-unsigned add_pad(struct arguments* args) {
+unsigned add_pad(struct arguments* args, char** full_pad) {
   unsigned len = strlen(args->str);
-  if (args->pad <= 0 || len <= 0) {
+  if (args->pad <= 0 || len <= 0 || args->p_str_len <= 0) {
     return len;
   }
 
-  for (int i = 0; i < args->pad; ++i) {
-    size_t cat_len = len + (i + 2) * args->p_str_len;
-    strlcat(args->str, args->pad_str, cat_len);
+  if (*full_pad == NULL) {
+    if (args->pad == 1) {
+      *full_pad = args->pad_str;
+    } else {
+      *full_pad = calloc(args->pad * args->p_str_len + 1, sizeof(char));
+      size_t cat_len;
+      for (int i = 0; i < args->pad; ++i) {
+        cat_len = len + (i + 1) * args->p_str_len;
+        strlcat(*full_pad, args->pad_str, cat_len);
+      }
+    }
   }
-  return len + (args->pad * args->p_str_len);
+
+  return strlcat(args->str, *full_pad, len + (args->pad * args->p_str_len) + 1);
 }
