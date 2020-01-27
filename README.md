@@ -21,3 +21,6 @@ A simple terminal text scroller
   -?, --help                 Give this help list
       --usage                Give a short usage message
 ```
+
+### TODO
+- wide character support
