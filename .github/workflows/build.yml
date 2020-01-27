@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: dependencies
-      run: sudo apt-get install libbsd-dev clang
+      run: sudo apt-get install clang
     - name: configure
       run: cmake .
     - name: make

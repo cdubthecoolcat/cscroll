@@ -1,4 +1,4 @@
-#include <bsd/string.h>
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -13,11 +13,20 @@ char* gen_cmd_output(char* cmd_str, size_t pad) {
   check_errors(output);
   size_t buf_len = 0;
 
-  while (fgets(buf, sizeof(buf), cmd) != 0) {
-    buf_len += strlen(buf);
+  while (fgets(buf, sizeof(buf), cmd)) {
+    size_t part_len = strlen(buf);
+    buf_len += part_len;
     output = realloc(output, sizeof(char) * (buf_len + pad + 1));
     check_errors(output);
-    strlcat(output, buf, buf_len);
+    strcat(output, buf);
+  }
+
+  if (buf_len == 0) {
+    output = realloc(output, sizeof(char) * (buf_len + 1));
+  }
+
+  if (output[buf_len - 1] == '\n') {
+    output[buf_len - 1] = 0;
   }
 
   pclose(cmd);

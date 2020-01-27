@@ -1,4 +1,4 @@
-#include <bsd/string.h>
+#include <string.h>
 #include <stdlib.h>
 
 #include "padding.h"
@@ -13,14 +13,15 @@ unsigned add_pad(struct arguments* args, char** full_pad) {
     if (args->pad == 1) {
       *full_pad = args->pad_str;
     } else {
-      *full_pad = calloc(args->pad * args->p_str_len + 1, sizeof(char));
-      size_t cat_len;
+      *full_pad = malloc((args->pad * args->p_str_len + 1) * sizeof(char));
+      (*full_pad)[0] = 0;
       for (int i = 0; i < args->pad; ++i) {
-        cat_len = len + (i + 1) * args->p_str_len;
-        strlcat(*full_pad, args->pad_str, cat_len);
+        strcat(*full_pad, args->pad_str);
       }
     }
   }
 
-  return strlcat(args->str, *full_pad, len + (args->pad * args->p_str_len) + 1);
+  strcat(args->str, *full_pad);
+
+  return len + (args->pad * args->p_str_len);
 }

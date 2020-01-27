@@ -1,4 +1,3 @@
-#include <bsd/string.h>
 #include <locale.h>
 #include <signal.h>
 #include <stdio.h>
@@ -59,9 +58,13 @@ int main(int argc, char** argv) {
     pos = args.reverse ? full_len - i : i;
 
     if (full_len != 0) {
-      printf("%.*s%.*s%s", print_len, args.str + pos,
-             full_len - pos < print_len ? print_len - (full_len - pos) : 0,
-             args.str, args.new_line ? "\n" : "\r");
+      printf("%.*s", print_len, args.str + pos);
+
+      if (full_len - pos < print_len) {
+        printf("%.*s", print_len - (full_len - pos), args.str);
+      }
+
+      printf("%s", args.new_line ? "\n" : "\r");
 
       i = (i + 1) % full_len;
       empty_printed = false;
