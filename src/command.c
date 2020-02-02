@@ -18,7 +18,7 @@ wchar_t* gen_cmd_output(char* cmd_str, size_t pad) {
     buf_len += part_len;
     output = realloc(output, sizeof(wchar_t) * (buf_len + pad + 1));
     check_errors(output);
-    mbstowcs(output + buf_len - part_len, buf, part_len);
+    mbstowcs(output + buf_len - part_len, buf, part_len + 1);
   }
 
   if (buf_len == 0) {
