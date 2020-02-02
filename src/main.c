@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
       i = (i + 1) % full_len;
       empty_printed = false;
     } else if (!empty_printed) {
-      args.new_line ? printf("\n") : printf("\r");
+      args.new_line ? wprintf(L"\n") : wprintf(L"\r");
       empty_printed = true;
     }
 
