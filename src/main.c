@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
     args.str = gen_cmd_output(args.cmd, args.pad * args.p_str_len);
   }
 
-  char* full_pad = NULL;
+  wchar_t* full_pad = NULL;
   unsigned full_len = add_pad(&args, &full_pad);
 
   bool empty_printed = false;
@@ -58,13 +58,13 @@ int main(int argc, char** argv) {
     pos = args.reverse ? full_len - i : i;
 
     if (full_len != 0) {
-      printf("%.*s", print_len, args.str + pos);
+      wprintf(L"%.*ls", print_len, args.str + pos);
 
       if (full_len - pos < print_len) {
-        printf("%.*s", print_len - (full_len - pos), args.str);
+        wprintf(L"%.*ls", print_len - (full_len - pos), args.str);
       }
 
-      printf("%s", args.new_line ? "\n" : "\r");
+      wprintf(L"%ls", args.new_line ? L"\n" : L"\r");
 
       i = (i + 1) % full_len;
       empty_printed = false;

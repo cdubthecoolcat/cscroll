@@ -6,27 +6,28 @@
 #include "error.h"
 #include "padding.h"
 
-char* gen_cmd_output(char* cmd_str, size_t pad) {
+wchar_t* gen_cmd_output(char* cmd_str, size_t pad) {
   FILE* cmd = popen(cmd_str, "r");
   char buf[BUFFER_LENGTH];
-  char* output = calloc(1, sizeof(char));
+  wchar_t* output = calloc(1, sizeof(wchar_t));
   check_errors(output);
   size_t buf_len = 0;
 
   while (fgets(buf, sizeof(buf), cmd)) {
     size_t part_len = strlen(buf);
     buf_len += part_len;
-    output = realloc(output, sizeof(char) * (buf_len + pad + 1));
+    output = realloc(output, sizeof(wchar_t) * (buf_len + pad + 1));
     check_errors(output);
-    strcat(output, buf);
+    mbstowcs(output + buf_len - part_len, buf, part_len);
   }
 
   if (buf_len == 0) {
-    output = realloc(output, sizeof(char) * (buf_len + 1));
+    output = realloc(output, sizeof(wchar_t) * (buf_len + 1));
   }
 
-  if (output[buf_len - 1] == '\n') {
-    output[buf_len - 1] = 0;
+  size_t len = wcslen(output);
+  if (output[len - 1] == '\n') {
+    output[len - 1] = 0;
   }
 
   pclose(cmd);
@@ -36,11 +37,11 @@ char* gen_cmd_output(char* cmd_str, size_t pad) {
 void handle_output_change(unsigned* full_len,
                           unsigned* print_len,
                           struct arguments* args,
-                          char** full_pad,
+                          wchar_t** full_pad,
                           unsigned* scroller) {
   unsigned pad_len = args->pad * args->p_str_len;
-  char* new_str = gen_cmd_output(args->cmd, pad_len);
-  if (strncmp(args->str, new_str, *full_len - pad_len) == 0) {
+  wchar_t* new_str = gen_cmd_output(args->cmd, pad_len);
+  if (wcsncmp(args->str, new_str, *full_len - pad_len) == 0) {
     free(new_str);
     return;
   }

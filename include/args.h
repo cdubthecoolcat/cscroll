@@ -4,6 +4,7 @@
 
 #include <argp.h>
 #include <stdbool.h>
+#include <wchar.h>
 
 #define FLAG_LEN 2
 
@@ -12,7 +13,7 @@ struct arguments {
   int max_len;
   int p_str_len;
   long double delay;
-  char* str;
+  wchar_t* str;
   char* cmd;
   char* pad_str;
   bool new_line;
