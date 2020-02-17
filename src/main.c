@@ -21,15 +21,15 @@ int main(int argc, char** argv) {
 
   // defaults
   struct arguments args = {
-      0,      // pad
-      -1,     // max_len
-      1,      // p_str_len
-      1.0,    // delay
-      NULL,   // str
-      NULL,   // cmd
-      " ",    // pad str
-      false,  // new_line
-      false,  // reverse
+    0,      // pad
+    -1,     // max_len
+    1,      // p_str_len
+    1.0,    // delay
+    NULL,   // str
+    NULL,   // cmd
+    " ",    // pad str
+    false,  // new_line
+    false,  // reverse
   };
 
   argp_parse(&argp, argc, argv, 0, 0, &args);
