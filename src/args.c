@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <wchar.h>
 
 #include "args.h"
 
@@ -47,7 +48,7 @@ error_t parse_opt(int key, char* arg, struct argp_state* state) {
       arguments->delay = atof(arg);
       break;
     case 's':
-      arguments->str = arg;
+      mbstowcs(arguments->str, arg, 0);
       break;
     case 'c':
       arguments->cmd = arg;
